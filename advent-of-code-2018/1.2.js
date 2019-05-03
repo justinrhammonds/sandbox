@@ -962,12 +962,30 @@ const input = `
 -73113
 `;
 
-const frequency = input
+const frequencies = [0];
+
+const frequencyChanges = input.trim('\n')
   .split('\n')
-  .map(Number)
-  .reduce((a, b) => a + b);
-console.log('frequencyChanges :', frequency);
+  .map(Number);
+
+/*
+for each frequency change,
+add frequency change to last item in frequencies,
+if exists in frequencies, return it
+else add it to frequencies
+*/
+let calibratedFrequency = 0;
+for (let i = 0; i < frequencyChanges.length; i += 1) {
+  const newFrequency = frequencies[frequencies.length - 1] + frequencyChanges[i];
+  if (frequencies.includes(newFrequency)) {
+    calibratedFrequency = newFrequency;
+    break;
+  }
+  frequencies.push(newFrequency);
+  // reset to beginning if we've reached the end of the frequency changes without a repeated value
+  if (i === frequencyChanges.length - 1) i = -1; // must also account for the i += 1
+}
 
 // display answer in DOC
 const span = document.querySelector('span.answer');
-span.innerHTML = frequency;
+span.innerHTML = calibratedFrequency;
