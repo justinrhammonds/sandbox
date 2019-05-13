@@ -967,7 +967,3 @@ const frequency = input
   .map(Number)
   .reduce((a, b) => a + b);
 console.log('frequencyChanges :', frequency);
-
-// display answer in DOC
-const span = document.querySelector('span.answer');
-span.innerHTML = frequency;
